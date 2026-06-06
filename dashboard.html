@@ -3,592 +3,389 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartPen — לוח בקרה</title>
+<title>SmartPen ‚Äî ◊ú◊ï◊ó ◊û◊ï◊®◊î</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0F1117; color: #E8EAF0; font-family: 'Segoe UI', Arial, sans-serif; min-height: 100vh; }
+  body {
+    background: #f5f5f5;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 20px;
+    color: #222;
+  }
 
-  /* ---- Header ---- */
   .header {
-    background: #1A1D27; border-bottom: 1px solid #2A2D3A;
-    padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+    background: #1a1a2e;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
   }
-  .logo { display: flex; align-items: center; gap: 12px; }
-  .logo-icon {
-    width: 36px; height: 36px; border-radius: 8px;
-    background: linear-gradient(135deg, #00C896, #00896A);
-    display: flex; align-items: center; justify-content: center; font-size: 18px;
-  }
-  .logo-text { font-weight: 700; font-size: 18px; color: #fff; }
-  .logo-sub { font-size: 11px; color: #00C896; }
+  .header h1 { font-size: 20px; }
+  .header span { font-size: 13px; color: #aaa; }
 
-  /* ---- Connection panel ---- */
-  #connect-panel {
-    position: fixed; inset: 0; background: #0F1117;
-    display: flex; align-items: center; justify-content: center; z-index: 100;
+  .connect-bar {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   }
-  .connect-card {
-    background: #1A1D27; border: 1px solid #2A2D3A; border-radius: 16px;
-    padding: 36px 40px; width: 380px; text-align: center;
+  .connect-bar button {
+    background: #0066ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
   }
-  .connect-card h2 { font-size: 20px; margin-bottom: 8px; color: #fff; }
-  .connect-card p { font-size: 13px; color: #888; margin-bottom: 24px; line-height: 1.6; }
-  .connect-card input {
-    width: 100%; background: #0F1117; border: 1px solid #2A2D3A;
-    color: #fff; padding: 12px 14px; border-radius: 8px; font-size: 14px;
-    margin-bottom: 12px; text-align: center; direction: ltr;
+  .connect-bar button:hover { background: #0052cc; }
+  .connect-bar .demo-btn {
+    background: white;
+    color: #555;
+    border: 1px solid #ddd;
   }
-  .connect-card input:focus { outline: none; border-color: #00C896; }
-  .btn-connect {
-    width: 100%; background: #00C896; color: #000; border: none;
-    padding: 12px; border-radius: 8px; font-size: 15px; font-weight: 700;
-    cursor: pointer; transition: opacity 0.2s;
+  .connect-bar .demo-btn:hover { background: #f0f0f0; }
+  .status-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    flex-shrink: 0;
   }
-  .btn-connect:hover { opacity: 0.85; }
-  .btn-demo {
-    width: 100%; background: transparent; color: #555; border: 1px solid #2A2D3A;
-    padding: 10px; border-radius: 8px; font-size: 13px; cursor: pointer;
-    margin-top: 8px; transition: all 0.2s;
+  .status-dot.connected { background: #22c55e; }
+  .status-dot.demo { background: #f59e0b; animation: blink 1.5s infinite; }
+  #status-text { font-size: 13px; color: #888; }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* Summary */
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
   }
-  .btn-demo:hover { border-color: #555; color: #aaa; }
-  #conn-status { font-size: 12px; margin-top: 12px; min-height: 18px; }
-  .status-ok { color: #00C896; }
-  .status-err { color: #E84040; }
-
-  /* ---- Status bar ---- */
-  .status-bar { display: flex; align-items: center; gap: 8px; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: #555; }
-  .dot.live { background: #00C896; animation: blink 1.5s infinite; }
-  .dot.demo { background: #F5A623; animation: blink 1.5s infinite; }
-  .dot.off { background: #E84040; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
-  /* ---- Stats row ---- */
-  .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; padding: 16px 24px 0; }
-  .stat-card {
-    background: #1A1D27; border: 1px solid #2A2D3A; border-radius: 10px; padding: 14px 18px;
+  .summary-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    text-align: center;
   }
-  .stat-label { font-size: 11px; color: #888; margin-bottom: 6px; }
-  .stat-val { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
-
-  /* ---- Main grid ---- */
-  .main { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 24px 24px; }
-  .card { background: #1A1D27; border: 1px solid #2A2D3A; border-radius: 10px; overflow: hidden; }
-  .card-header {
-    padding: 12px 16px 10px; border-bottom: 1px solid #2A2D3A;
-    font-size: 12px; font-weight: 600; color: #aaa;
-    display: flex; justify-content: space-between; align-items: center;
+  .summary-card .num {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 4px;
   }
-  .card-body { padding: 16px; }
+  .summary-card .lbl { font-size: 12px; color: #888; }
 
-  /* ---- Gauges ---- */
-  .gauges { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-  .gauge { text-align: center; }
-  .gauge-ring {
-    position: relative; width: 80px; height: 80px; margin: 0 auto 8px;
+  /* Student list */
+  .list-header {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 10px;
+    padding: 0 4px;
   }
-  .gauge-ring svg { width: 80px; height: 80px; transform: rotate(-90deg); }
-  .gauge-ring circle { fill: none; stroke-width: 7; stroke-linecap: round; }
-  .gauge-bg { stroke: #2A2D3A; }
-  .gauge-fill { transition: stroke-dashoffset 0.8s ease; }
-  .gauge-center {
-    position: absolute; inset: 0; display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
+
+  .student {
+    background: white;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: transform 0.1s;
   }
-  .gauge-num { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .gauge-unit { font-size: 9px; color: #666; }
-  .gauge-label { font-size: 11px; color: #aaa; }
+  .student:hover { transform: translateX(-2px); }
 
-  /* ---- Chart ---- */
-  .chart-wrap { position: relative; }
-  canvas#pressureChart { width: 100%; height: 120px; display: block; }
-
-  /* ---- Accel bars ---- */
-  .accel-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .accel-axis { font-size: 11px; color: #888; width: 16px; flex-shrink: 0; font-weight: 700; }
-  .accel-track { flex: 1; background: #0F1117; border-radius: 4px; height: 10px; overflow: hidden; position: relative; }
-  .accel-bar { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
-  .accel-val { font-size: 10px; color: #666; width: 36px; text-align: left; flex-shrink: 0; font-variant-numeric: tabular-nums; direction: ltr; }
-
-  /* ---- Writing status ---- */
-  .writing-status {
-    display: flex; align-items: center; gap: 10px; padding: 12px 14px;
-    border-radius: 8px; margin-bottom: 12px; transition: all 0.3s;
+  .student-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
   }
-  .writing-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-  .writing-text { font-size: 13px; font-weight: 600; }
-  .writing-sub { font-size: 11px; color: #888; }
 
-  /* ---- Exam controls ---- */
-  .exam-controls { display: flex; gap: 8px; margin-top: 12px; }
-  .btn { padding: 8px 14px; border-radius: 6px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
-  .btn:hover { opacity: 0.8; }
-  .btn-start { background: #00C896; color: #000; }
-  .btn-alert { background: #E84040; color: #fff; }
-  .btn-end { background: #2A2D3A; color: #aaa; }
+  .student-name {
+    font-size: 15px;
+    font-weight: 600;
+    flex: 1;
+  }
 
-  /* ---- Log ---- */
-  #log { height: 120px; overflow-y: auto; font-size: 10px; color: #555; font-family: monospace; }
-  #log div { padding: 2px 0; border-bottom: 1px solid #2A2D3A11; }
-  #log .log-warn { color: #F5A623; }
-  #log .log-alert { color: #E84040; }
-  #log .log-ok { color: #00C896; }
+  .student-status {
+    font-size: 13px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
 
-  /* ---- Disconnect btn ---- */
-  .btn-disconnect { background: transparent; border: 1px solid #E84040; color: #E84040; padding: 6px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; }
-  .btn-disconnect:hover { background: #E8404022; }
+  .student-detail {
+    font-size: 12px;
+    color: #aaa;
+    width: 80px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Status colors */
+  .focused   { background: #dcfce7; color: #16a34a; }
+  .distracted{ background: #fef9c3; color: #a16207; }
+  .alert     { background: #fee2e2; color: #dc2626; }
+
+  .dot-focused    { background: #22c55e; }
+  .dot-distracted { background: #eab308; }
+  .dot-alert      { background: #ef4444; box-shadow: 0 0 0 3px #fee2e2; }
+
+  /* Exam controls */
+  .controls {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .controls span { font-size: 13px; color: #888; flex: 1; }
+  .ctrl-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .ctrl-btn.start { background: #22c55e; color: white; }
+  .ctrl-btn.alert-btn { background: #ef4444; color: white; }
+  .ctrl-btn.end { background: #e5e7eb; color: #555; }
+
+  /* Timer */
+  .timer {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a2e;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .timer-label { font-size: 11px; color: #aaa; text-align: center; margin-bottom: 16px; }
 </style>
 </head>
 <body>
 
-<!-- Connection Panel -->
-<div id="connect-panel">
-  <div class="connect-card">
-    <div style="font-size:40px;margin-bottom:12px">✒️</div>
-    <h2>SmartPen — חיבור</h2>
-    <p>הכנס את כתובת ה-IP של ה-ESP32 שלך.<br>תמצא אותה ב-Serial Monitor של Arduino.<br><br>
-    <small style="color:#555">דוגמה: 192.168.1.42</small></p>
-    <input type="text" id="ip-input" placeholder="192.168.1.xx" value="192.168.1." />
-    <button class="btn-connect" onclick="connectBLE()">🔵 התחבר ל-SmartPen דרך Bluetooth</button>
-    <button class="btn-demo" onclick="startDemo()">🎮 הפעל מצב הדגמה (ללא חומרה)</button>
-    <div id="conn-status"></div>
-    <div style="margin-top:12px;font-size:11px;color:#444;line-height:1.5">
-      ⚠️ Web Bluetooth עובד רק ב-Chrome/Edge<br>
-      ודא שה-Bluetooth של המחשב פועל
-    </div>
-  </div>
-</div>
-
-<!-- Header -->
 <div class="header">
-  <div class="logo">
-    <div class="logo-icon">✒️</div>
-    <div>
-      <div class="logo-text">SmartPen</div>
-      <div class="logo-sub">לוח בקרה מורה</div>
-    </div>
+  <h1>‚úíÔ∏è SmartPen ‚Äî ◊ú◊ï◊ó ◊û◊ï◊®◊î</h1>
+  <span>◊õ◊ô◊™◊î ◊ñ◊≥2 | ◊û◊™◊û◊ò◊ô◊ß◊î</span>
+</div>
+
+<!-- ◊ó◊ô◊ë◊ï◊® -->
+<div class="connect-bar">
+  <div class="status-dot" id="dot"></div>
+  <span id="status-text">◊û◊†◊ï◊™◊ß</span>
+  <div style="flex:1"></div>
+  <button onclick="connectBLE()">üîµ ◊î◊™◊ó◊ë◊® ◊ú◊¢◊ò</button>
+  <button class="demo-btn" onclick="startDemo()">üéÆ ◊î◊ì◊í◊û◊î</button>
+  <button class="demo-btn" onclick="disconnect()" id="disc" style="display:none;color:#e00">‚úï ◊†◊™◊ß</button>
+</div>
+
+<!-- ◊ò◊ô◊ô◊û◊® -->
+<div class="timer" id="timer">42:00</div>
+<div class="timer-label">◊ñ◊û◊ü ◊†◊ï◊™◊® ◊ë◊û◊ë◊ó◊ü</div>
+
+<!-- ◊°◊ô◊õ◊ï◊ù -->
+<div class="summary">
+  <div class="summary-card">
+    <div class="num" id="cnt-focused" style="color:#22c55e">0</div>
+    <div class="lbl">◊õ◊ï◊™◊ë◊ô◊ù / ◊û◊û◊ï◊ß◊ì◊ô◊ù</div>
   </div>
-  <div class="status-bar">
-    <div class="dot off" id="conn-dot"></div>
-    <span style="font-size:12px;color:#aaa" id="conn-label">מנותק</span>
-    <span style="font-size:12px;color:#555;margin:0 8px">|</span>
-    <span style="font-size:12px;color:#aaa" id="device-ip">—</span>
-    <button class="btn-disconnect" id="disc-btn" onclick="disconnect()" style="display:none;margin-right:12px">✕ נתק</button>
+  <div class="summary-card">
+    <div class="num" id="cnt-distracted" style="color:#eab308">0</div>
+    <div class="lbl">◊û◊ï◊°◊ó◊ô◊ù</div>
+  </div>
+  <div class="summary-card">
+    <div class="num" id="cnt-alert" style="color:#ef4444">0</div>
+    <div class="lbl">◊ì◊ï◊®◊©◊ô◊ù ◊™◊©◊ï◊û◊™ ◊ú◊ë</div>
   </div>
 </div>
 
-<!-- Stats -->
-<div class="stats">
-  <div class="stat-card">
-    <div class="stat-label">לחץ כתיבה</div>
-    <div class="stat-val" id="stat-pressure" style="color:#00C896">—</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">דופק</div>
-    <div class="stat-val" id="stat-hr" style="color:#E84040">—</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">ריכוז מוערך</div>
-    <div class="stat-val" id="stat-focus" style="color:#5B8DEF">—</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">סטטוס כתיבה</div>
-    <div class="stat-val" id="stat-writing" style="color:#F5A623;font-size:16px">ממתין...</div>
-  </div>
+<!-- ◊©◊ú◊ô◊ò◊î -->
+<div class="controls">
+  <span id="exam-status">◊û◊¶◊ë ◊ó◊ï◊§◊©◊ô</span>
+  <button class="ctrl-btn start" onclick="sendCmd('START_EXAM')">‚ñ∂ ◊î◊™◊ó◊ú ◊û◊ë◊ó◊ü</button>
+  <button class="ctrl-btn alert-btn" onclick="sendCmd('ALERT')">‚ö†Ô∏è ◊î◊™◊®◊ê◊î</button>
+  <button class="ctrl-btn end" onclick="sendCmd('END_EXAM')">‚ñ† ◊°◊ô◊ô◊ù</button>
 </div>
 
-<!-- Main grid -->
-<div class="main">
-
-  <!-- Gauges -->
-  <div class="card">
-    <div class="card-header">מדדים בזמן אמת</div>
-    <div class="card-body">
-      <div class="gauges">
-
-        <div class="gauge">
-          <div class="gauge-ring">
-            <svg viewBox="0 0 80 80">
-              <circle class="gauge-bg" cx="40" cy="40" r="32" />
-              <circle class="gauge-fill" id="g-pressure-fill" cx="40" cy="40" r="32"
-                stroke="#00C896" stroke-dasharray="201" stroke-dashoffset="201" />
-            </svg>
-            <div class="gauge-center">
-              <div class="gauge-num" id="g-pressure-num" style="color:#00C896">0</div>
-              <div class="gauge-unit">%</div>
-            </div>
-          </div>
-          <div class="gauge-label">לחץ כתיבה</div>
-        </div>
-
-        <div class="gauge">
-          <div class="gauge-ring">
-            <svg viewBox="0 0 80 80">
-              <circle class="gauge-bg" cx="40" cy="40" r="32" />
-              <circle class="gauge-fill" id="g-hr-fill" cx="40" cy="40" r="32"
-                stroke="#E84040" stroke-dasharray="201" stroke-dashoffset="201" />
-            </svg>
-            <div class="gauge-center">
-              <div class="gauge-num" id="g-hr-num" style="color:#E84040">0</div>
-              <div class="gauge-unit">bpm</div>
-            </div>
-          </div>
-          <div class="gauge-label">דופק</div>
-        </div>
-
-        <div class="gauge">
-          <div class="gauge-ring">
-            <svg viewBox="0 0 80 80">
-              <circle class="gauge-bg" cx="40" cy="40" r="32" />
-              <circle class="gauge-fill" id="g-focus-fill" cx="40" cy="40" r="32"
-                stroke="#5B8DEF" stroke-dasharray="201" stroke-dashoffset="201" />
-            </svg>
-            <div class="gauge-center">
-              <div class="gauge-num" id="g-focus-num" style="color:#5B8DEF">0</div>
-              <div class="gauge-unit">%</div>
-            </div>
-          </div>
-          <div class="gauge-label">ריכוז</div>
-        </div>
-      </div>
-
-      <!-- Writing status -->
-      <div style="margin-top:16px">
-        <div class="writing-status" id="writing-status" style="background:#2A2D3A22;border:1px solid #2A2D3A">
-          <div class="writing-dot" id="writing-dot" style="background:#555"></div>
-          <div>
-            <div class="writing-text" id="writing-text">ממתין לנתונים...</div>
-            <div class="writing-sub" id="writing-sub">חבר את ה-SmartPen</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Exam controls -->
-      <div class="exam-controls">
-        <button class="btn btn-start" onclick="sendCmd('START_EXAM')">▶ התחל מבחן</button>
-        <button class="btn btn-alert" onclick="sendCmd('ALERT')">⚠️ שלח התראה</button>
-        <button class="btn btn-end" onclick="sendCmd('END_EXAM')">■ סיים</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pressure history chart -->
-  <div class="card">
-    <div class="card-header">
-      <span>היסטוריית לחץ כתיבה — 30 שניות אחרונות</span>
-      <span id="chart-live" style="font-size:10px;color:#555">—</span>
-    </div>
-    <div class="card-body" style="padding:12px">
-      <canvas id="pressureChart" height="120"></canvas>
-    </div>
-    <div class="card-header" style="border-top:1px solid #2A2D3A;border-bottom:none;margin-top:0">
-      <span>תנועה (תאוצה)</span>
-    </div>
-    <div class="card-body" style="padding:12px 16px">
-      <div class="accel-row">
-        <div class="accel-axis" style="color:#E84040">X</div>
-        <div class="accel-track"><div class="accel-bar" id="ax-bar" style="background:#E84040;width:50%"></div></div>
-        <div class="accel-val" id="ax-val">0.00</div>
-      </div>
-      <div class="accel-row">
-        <div class="accel-axis" style="color:#00C896">Y</div>
-        <div class="accel-track"><div class="accel-bar" id="ay-bar" style="background:#00C896;width:50%"></div></div>
-        <div class="accel-val" id="ay-val">0.00</div>
-      </div>
-      <div class="accel-row">
-        <div class="accel-axis" style="color:#5B8DEF">Z</div>
-        <div class="accel-track"><div class="accel-bar" id="az-bar" style="background:#5B8DEF;width:50%"></div></div>
-        <div class="accel-val" id="az-val">9.80</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Raw data log -->
-  <div class="card" style="grid-column:1/-1">
-    <div class="card-header">
-      <span>לוג נתונים גולמיים</span>
-      <span style="font-size:10px;color:#555" id="packet-count">0 חבילות</span>
-    </div>
-    <div class="card-body" style="padding:8px 12px">
-      <div id="log"></div>
-    </div>
-  </div>
-
-</div>
+<!-- ◊®◊©◊ô◊û◊™ ◊™◊ú◊û◊ô◊ì◊ô◊ù -->
+<div class="list-header">◊™◊ú◊û◊ô◊ì◊ô◊ù (10)</div>
+<div id="students-list"></div>
 
 <script>
-let ws = null;
-let demoInterval = null;
-let packetCount = 0;
-let pressureHistory = new Array(150).fill(0);
-let isDemo = false;
+// ===== ◊†◊™◊ï◊†◊ô ◊™◊ú◊û◊ô◊ì◊ô◊ù =====
+const STUDENTS = [
+  { id: 1, name: '◊ì◊†◊ô◊ê◊ú ◊õ◊î◊ü',     status: 'focused',    hr: 72, pressure: 78 },
+  { id: 2, name: '◊û◊ô◊î ◊ú◊ï◊ô',       status: 'distracted', hr: 85, pressure: 32 },
+  { id: 3, name: '◊ô◊ï◊†◊™◊ü ◊ë◊®◊ß',     status: 'alert',      hr: 91, pressure: 10 },
+  { id: 4, name: '◊©◊ô◊®◊î ◊í◊ï◊ú◊ü',     status: 'focused',    hr: 68, pressure: 85 },
+  { id: 5, name: '◊ê◊û◊ô◊® ◊ì◊ï◊ì',      status: 'focused',    hr: 74, pressure: 70 },
+  { id: 6, name: '◊†◊ï◊¢◊î ◊§◊®◊•',      status: 'distracted', hr: 79, pressure: 40 },
+  { id: 7, name: '◊¢◊ô◊ì◊ï ◊©◊û◊©',      status: 'focused',    hr: 66, pressure: 90 },
+  { id: 8, name: '◊™◊û◊® ◊ê◊ë◊®◊î◊ù',     status: 'focused',    hr: 71, pressure: 65 },
+  { id: 9, name: '◊®◊ï◊ü ◊õ◊•',        status: 'distracted', hr: 82, pressure: 38 },
+  { id: 10, name: '◊ú◊ô◊ê◊ï◊® ◊ë◊ü-◊ì◊ï◊ì', status: 'focused',    hr: 69, pressure: 80 },
+]
 
-// ===== Chart =====
-const canvas = document.getElementById('pressureChart');
-const ctx = canvas.getContext('2d');
-canvas.width = canvas.offsetWidth * 2;
-canvas.height = 240;
-canvas.style.height = '120px';
+const STATUS_LABEL = { focused: '‚úçÔ∏è ◊õ◊ï◊™◊ë', distracted: 'üòê ◊û◊ï◊°◊ó', alert: 'üö® ◊ì◊ï◊®◊© ◊™◊©◊ï◊û◊™ ◊ú◊ë' }
 
-function drawChart() {
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0, 0, W, H);
+let students = STUDENTS.map(s => ({...s}))
+let demoInterval = null
+let timerSecs = 42 * 60
+let timerInterval = null
+let cmdChar = null
+let bleDevice = null
+let isDemo = false
 
-  // Grid lines
-  ctx.strokeStyle = '#2A2D3A';
-  ctx.lineWidth = 1;
-  for (let y = 0; y <= 4; y++) {
-    ctx.beginPath();
-    ctx.moveTo(0, (y / 4) * H);
-    ctx.lineTo(W, (y / 4) * H);
-    ctx.stroke();
-  }
+// ===== ◊¶◊ô◊ï◊® ◊®◊©◊ô◊û◊î =====
+function render() {
+  const list = document.getElementById('students-list')
+  list.innerHTML = ''
 
-  // Fill
-  const grad = ctx.createLinearGradient(0, 0, 0, H);
-  grad.addColorStop(0, 'rgba(0,200,150,0.3)');
-  grad.addColorStop(1, 'rgba(0,200,150,0.02)');
+  let f = 0, d = 0, a = 0
+  students.forEach(s => {
+    if (s.status === 'focused') f++
+    else if (s.status === 'distracted') d++
+    else a++
 
-  ctx.beginPath();
-  ctx.moveTo(0, H);
-  pressureHistory.forEach((v, i) => {
-    const x = (i / (pressureHistory.length - 1)) * W;
-    const y = H - (v / 100) * H;
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-  });
-  ctx.lineTo(W, H);
-  ctx.closePath();
-  ctx.fillStyle = grad;
-  ctx.fill();
+    const div = document.createElement('div')
+    div.className = 'student'
+    div.innerHTML = `
+      <div class="student-dot dot-${s.status}"></div>
+      <div class="student-name">${s.name}</div>
+      <div class="student-detail">‚ô• ${s.hr} bpm</div>
+      <div class="student-detail">◊ú◊ó◊• ${s.pressure}%</div>
+      <div class="student-status ${s.status}">${STATUS_LABEL[s.status]}</div>
+    `
+    list.appendChild(div)
+  })
 
-  // Line
-  ctx.beginPath();
-  pressureHistory.forEach((v, i) => {
-    const x = (i / (pressureHistory.length - 1)) * W;
-    const y = H - (v / 100) * H;
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-  });
-  ctx.strokeStyle = '#00C896';
-  ctx.lineWidth = 3;
-  ctx.lineJoin = 'round';
-  ctx.stroke();
-
-  // Latest point
-  const last = pressureHistory[pressureHistory.length - 1];
-  const lx = W, ly = H - (last / 100) * H;
-  ctx.beginPath();
-  ctx.arc(lx, ly, 6, 0, Math.PI * 2);
-  ctx.fillStyle = '#00C896';
-  ctx.fill();
+  document.getElementById('cnt-focused').textContent = f
+  document.getElementById('cnt-distracted').textContent = d
+  document.getElementById('cnt-alert').textContent = a
 }
 
-// ===== Gauge updater =====
-function setGauge(id, value, max) {
-  const circ = 2 * Math.PI * 32; // 201
-  const offset = circ - (value / max) * circ;
-  document.getElementById(id + '-fill').style.strokeDashoffset = Math.max(0, offset);
-  document.getElementById(id + '-num').textContent = Math.round(value);
+// ===== ◊ò◊ô◊ô◊û◊® =====
+function startTimer() {
+  if (timerInterval) clearInterval(timerInterval)
+  timerInterval = setInterval(() => {
+    if (timerSecs > 0) timerSecs--
+    const m = Math.floor(timerSecs / 60).toString().padStart(2,'0')
+    const s = (timerSecs % 60).toString().padStart(2,'0')
+    document.getElementById('timer').textContent = `${m}:${s}`
+  }, 1000)
 }
 
-// ===== Update UI =====
-function updateUI(data) {
-  packetCount++;
-  document.getElementById('packet-count').textContent = packetCount + ' חבילות';
-
-  // Stats
-  document.getElementById('stat-pressure').textContent = data.pressure + '%';
-  document.getElementById('stat-hr').textContent = data.hr + ' bpm';
-  document.getElementById('stat-focus').textContent = data.focus + '%';
-
-  // Gauges
-  setGauge('g-pressure', data.pressure, 100);
-  setGauge('g-hr', Math.max(0, data.hr - 40), 120); // map 40-160 to 0-120
-  setGauge('g-focus', data.focus, 100);
-
-  // Writing status
-  const ws_el = document.getElementById('writing-status');
-  const dot = document.getElementById('writing-dot');
-  const txt = document.getElementById('writing-text');
-  const sub = document.getElementById('writing-sub');
-
-  if (data.writing && data.pen_down) {
-    ws_el.style.background = '#00C89611'; ws_el.style.borderColor = '#00C89666';
-    dot.style.background = '#00C896';
-    txt.textContent = '✍️ כותב כרגע'; sub.textContent = `לחץ: ${data.pressure}% | דופק: ${data.hr} bpm`;
-    document.getElementById('stat-writing').textContent = '✍️ כותב';
-    document.getElementById('stat-writing').style.color = '#00C896';
-  } else if (data.pen_down && !data.writing) {
-    ws_el.style.background = '#F5A62311'; ws_el.style.borderColor = '#F5A62366';
-    dot.style.background = '#F5A623';
-    txt.textContent = '🖊️ עט נוגע'; sub.textContent = `לחץ: ${data.pressure}%`;
-    document.getElementById('stat-writing').textContent = '🖊️ נוגע';
-    document.getElementById('stat-writing').style.color = '#F5A623';
-  } else {
-    ws_el.style.background = '#2A2D3A22'; ws_el.style.borderColor = '#2A2D3A';
-    dot.style.background = '#555';
-    txt.textContent = '⏸️ לא כותב'; sub.textContent = 'ממתין לפעילות...';
-    document.getElementById('stat-writing').textContent = '⏸️ עצור';
-    document.getElementById('stat-writing').style.color = '#888';
-  }
-
-  // Chart
-  pressureHistory.push(data.pressure);
-  if (pressureHistory.length > 150) pressureHistory.shift();
-  drawChart();
-  document.getElementById('chart-live').textContent = `עדכון: ${new Date().toLocaleTimeString('he-IL')}`;
-
-  // Accel bars (map -2..2 to 0..100%)
-  const mapAccel = v => Math.min(100, Math.max(0, ((v + 2) / 4) * 100));
-  document.getElementById('ax-bar').style.width = mapAccel(data.ax) + '%';
-  document.getElementById('ay-bar').style.width = mapAccel(data.ay) + '%';
-  document.getElementById('az-bar').style.width = mapAccel(data.az) + '%';
-  document.getElementById('ax-val').textContent = Number(data.ax).toFixed(2);
-  document.getElementById('ay-val').textContent = Number(data.ay).toFixed(2);
-  document.getElementById('az-val').textContent = Number(data.az).toFixed(2);
-
-  // Log
-  const log = document.getElementById('log');
-  const entry = document.createElement('div');
-  const cls = data.pressure > 90 ? 'log-alert' : data.writing ? 'log-ok' : '';
-  entry.className = cls;
-  entry.textContent = `[${new Date().toLocaleTimeString('he-IL')}] P:${data.pressure}% HR:${data.hr} focus:${data.focus}% writing:${data.writing} ax:${Number(data.ax).toFixed(2)}`;
-  log.insertBefore(entry, log.firstChild);
-  while (log.children.length > 50) log.removeChild(log.lastChild);
-}
-
-// ===== BLE UUIDs (חייבים להתאים לקוד ה-ESP32) =====
-const SERVICE_UUID        = '12345678-1234-1234-1234-123456789abc';
-const CHARACTERISTIC_UUID = 'abcd1234-ab12-ab12-ab12-abcdef123456';
-const CMD_UUID            = 'abcd5678-ab12-ab12-ab12-abcdef123456';
-
-let bleDevice = null;
-let bleServer = null;
-let cmdCharacteristic = null;
+// ===== BLE =====
+const SVC = '12345678-1234-1234-1234-123456789abc'
+const DATA_UUID = 'abcd1234-ab12-ab12-ab12-abcdef123456'
+const CMD_UUID  = 'abcd5678-ab12-ab12-ab12-abcdef123456'
 
 async function connectBLE() {
-  const statusEl = document.getElementById('conn-status');
-
   if (!navigator.bluetooth) {
-    statusEl.textContent = '❌ הדפדפן לא תומך ב-Web Bluetooth — השתמש ב-Chrome';
-    statusEl.className = 'status-err';
-    return;
+    alert('Web Bluetooth ◊¢◊ï◊ë◊ì ◊®◊ß ◊ë-Chrome. ◊§◊™◊ó ◊ë◊õ◊®◊ï◊ù.')
+    return
   }
-
   try {
-    statusEl.textContent = '🔍 מחפש SmartPen...';
-    statusEl.className = '';
-
+    document.getElementById('status-text').textContent = '◊û◊ó◊§◊©...'
     bleDevice = await navigator.bluetooth.requestDevice({
       filters: [{ name: 'SmartPen-01' }],
-      optionalServices: [SERVICE_UUID]
-    });
+      optionalServices: [SVC]
+    })
+    bleDevice.addEventListener('gattserverdisconnected', () => setStatus('off'))
 
-    statusEl.textContent = '🔗 מתחבר...';
-    bleDevice.addEventListener('gattserverdisconnected', () => {
-      setConnected('off', '—');
-      addLog('התנתק מה-SmartPen', 'log-alert');
-    });
+    const server  = await bleDevice.gatt.connect()
+    const service = await server.getPrimaryService(SVC)
+    const dataChar = await service.getCharacteristic(DATA_UUID)
+    cmdChar = await service.getCharacteristic(CMD_UUID)
 
-    bleServer = await bleDevice.gatt.connect();
-    const service = await bleServer.getPrimaryService(SERVICE_UUID);
-
-    // קבלת נתונים
-    const dataChar = await service.getCharacteristic(CHARACTERISTIC_UUID);
-    await dataChar.startNotifications();
-    dataChar.addEventListener('characteristicvaluechanged', (e) => {
-      const decoder = new TextDecoder();
-      const json = decoder.decode(e.target.value);
+    await dataChar.startNotifications()
+    dataChar.addEventListener('characteristicvaluechanged', e => {
+      const txt = new TextDecoder().decode(e.target.value)
       try {
-        const data = JSON.parse(json);
-        updateUI(data);
-      } catch(err) {}
-    });
+        const d = JSON.parse(txt)
+        // ◊¢◊ì◊õ◊ü ◊ê◊™ ◊î◊™◊ú◊û◊ô◊ì ◊î◊®◊ê◊©◊ï◊ü (◊ú◊ì◊ï◊í◊û◊î ‚Äî ◊™◊ï◊õ◊ú ◊ú◊î◊®◊ó◊ô◊ë)
+        students[0].pressure = d.pressure
+        students[0].hr = d.hr
+        students[0].status = d.writing ? 'focused' : d.pressure < 10 ? 'alert' : 'distracted'
+        render()
+      } catch(e) {}
+    })
 
-    // שליחת פקודות
-    cmdCharacteristic = await service.getCharacteristic(CMD_UUID);
-
-    isDemo = false;
-    document.getElementById('connect-panel').style.display = 'none';
-    setConnected('live', bleDevice.name);
-    addLog('✅ מחובר ל-SmartPen דרך Bluetooth!', 'log-ok');
-
-  } catch(err) {
-    statusEl.textContent = '❌ ' + (err.message || 'שגיאת חיבור');
-    statusEl.className = 'status-err';
+    setStatus('live')
+    startTimer()
+  } catch(e) {
+    document.getElementById('status-text').textContent = '‚ùå ' + e.message
   }
-}
-
-function setConnected(state, ip) {
-  const dot = document.getElementById('conn-dot');
-  const label = document.getElementById('conn-label');
-  dot.className = 'dot ' + state;
-  if (state === 'live') { label.textContent = 'מחובר — חי'; document.getElementById('device-ip').textContent = ip; }
-  else if (state === 'demo') { label.textContent = 'מצב הדגמה'; document.getElementById('device-ip').textContent = 'סימולציה'; }
-  else { label.textContent = 'מנותק'; document.getElementById('device-ip').textContent = '—'; }
-  document.getElementById('disc-btn').style.display = state !== 'off' ? 'block' : 'none';
 }
 
 async function sendCmd(cmd) {
-  if (cmdCharacteristic) {
-    const encoder = new TextEncoder();
-    await cmdCharacteristic.writeValue(encoder.encode(cmd));
-    addLog(`📤 נשלח: ${cmd}`, 'log-ok');
-  } else if (isDemo) {
-    addLog(`📤 [הדגמה] ${cmd}`, 'log-ok');
+  if (cmdChar) {
+    await cmdChar.writeValue(new TextEncoder().encode(cmd))
+  }
+  if (cmd === 'START_EXAM') {
+    document.getElementById('exam-status').textContent = 'üìù ◊û◊ë◊ó◊ü ◊§◊¢◊ô◊ú'
+    timerSecs = 42 * 60
+    startTimer()
+  } else if (cmd === 'END_EXAM') {
+    document.getElementById('exam-status').textContent = '‚úÖ ◊î◊û◊ë◊ó◊ü ◊î◊°◊™◊ô◊ô◊ù'
+    clearInterval(timerInterval)
   }
 }
 
-function addLog(msg, cls='') {
-  const log = document.getElementById('log');
-  const entry = document.createElement('div');
-  entry.className = cls;
-  entry.textContent = `[${new Date().toLocaleTimeString('he-IL')}] ${msg}`;
-  log.insertBefore(entry, log.firstChild);
+function setStatus(state) {
+  const dot = document.getElementById('dot')
+  const txt = document.getElementById('status-text')
+  const disc = document.getElementById('disc')
+  dot.className = 'status-dot ' + (state === 'live' ? 'connected' : state === 'demo' ? 'demo' : '')
+  txt.textContent = state === 'live' ? '‚úÖ ◊û◊ó◊ï◊ë◊® ◊ú-SmartPen' : state === 'demo' ? 'üéÆ ◊û◊¶◊ë ◊î◊ì◊í◊û◊î' : '◊û◊†◊ï◊™◊ß'
+  disc.style.display = state !== 'off' ? 'block' : 'none'
 }
 
 function disconnect() {
-  if (bleDevice && bleDevice.gatt.connected) bleDevice.gatt.disconnect();
-  bleDevice = null; bleServer = null; cmdCharacteristic = null;
-  if (demoInterval) { clearInterval(demoInterval); demoInterval = null; isDemo = false; }
-  document.getElementById('connect-panel').style.display = 'flex';
-  setConnected('off', '—');
+  if (bleDevice?.gatt?.connected) bleDevice.gatt.disconnect()
+  if (demoInterval) { clearInterval(demoInterval); demoInterval = null }
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null }
+  isDemo = false
+  setStatus('off')
 }
 
-// ===== Demo mode =====
+// ===== ◊î◊ì◊í◊û◊î =====
 function startDemo() {
-  isDemo = true;
-  document.getElementById('connect-panel').style.display = 'none';
-  setConnected('demo', 'סימולציה');
-
-  let t = 0;
-  let hr = 72, pressure = 50, focus = 65;
+  isDemo = true
+  setStatus('demo')
+  startTimer()
 
   demoInterval = setInterval(() => {
-    t++;
-    pressure = Math.max(10, Math.min(95, pressure + (Math.random()-0.4)*8));
-    hr = Math.max(60, Math.min(98, hr + (Math.random()-0.5)*3));
-    focus = Math.max(30, Math.min(95, focus + (Math.random()-0.45)*5));
-    const writing = pressure > 25;
-    const ax = (Math.random()-0.5)*0.4 + (writing ? 0.2 : 0);
-    const ay = (Math.random()-0.5)*0.3;
-    const az = 9.7 + (Math.random()-0.5)*0.3;
-
-    updateUI({
-      pressure: Math.round(pressure), hr: Math.round(hr),
-      focus: Math.round(focus), writing,
-      pen_down: pressure > 10, ax, ay, az,
-      gx: (Math.random()-0.5)*10, gy: (Math.random()-0.5)*10, gz: (Math.random()-0.5)*5,
-      exam_mode: false, ir: 50000 + Math.random()*10000
-    });
-  }, 300);
+    students = students.map(s => {
+      const pr = Math.max(5, Math.min(99, s.pressure + Math.round((Math.random()-0.4)*8)))
+      const hr = Math.max(60, Math.min(98, s.hr + Math.round((Math.random()-0.5)*3)))
+      const status = pr > 30 ? 'focused' : pr > 12 ? 'distracted' : 'alert'
+      return { ...s, pressure: pr, hr, status }
+    })
+    render()
+  }, 1500)
 }
 
-// resize canvas on load
-window.addEventListener('resize', () => {
-  canvas.width = canvas.offsetWidth * 2;
-  drawChart();
-});
-drawChart();
+// ===== ◊ê◊™◊ó◊ï◊ú =====
+render()
 </script>
 </body>
 </html>
