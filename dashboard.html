@@ -1,9 +1,9 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html dir="rtl" lang="he">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartPen ‚Äî ◊ú◊ï◊ó ◊û◊ï◊®◊î</title>
+<title>SmartPen ‚Äî &#1500;&#1493;&#1495; &#1502;&#1493;&#1512;&#1492;</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -183,68 +183,68 @@
 <body>
 
 <div class="header">
-  <h1>‚úíÔ∏è SmartPen ‚Äî ◊ú◊ï◊ó ◊û◊ï◊®◊î</h1>
-  <span>◊õ◊ô◊™◊î ◊ñ◊≥2 | ◊û◊™◊û◊ò◊ô◊ß◊î</span>
+  <h1>‚úíÔ∏è SmartPen ‚Äî &#1500;&#1493;&#1495; &#1502;&#1493;&#1512;&#1492;</h1>
+  <span>&#1499;&#1497;&#1514;&#1492; &#1494;&#1523;2 | &#1502;&#1514;&#1502;&#1496;&#1497;&#1511;&#1492;</span>
 </div>
 
-<!-- ◊ó◊ô◊ë◊ï◊® -->
+<!-- &#1495;&#1497;&#1489;&#1493;&#1512; -->
 <div class="connect-bar">
   <div class="status-dot" id="dot"></div>
-  <span id="status-text">◊û◊†◊ï◊™◊ß</span>
+  <span id="status-text">&#1502;&#1504;&#1493;&#1514;&#1511;</span>
   <div style="flex:1"></div>
-  <button onclick="connectBLE()">üîµ ◊î◊™◊ó◊ë◊® ◊ú◊¢◊ò</button>
-  <button class="demo-btn" onclick="startDemo()">üéÆ ◊î◊ì◊í◊û◊î</button>
-  <button class="demo-btn" onclick="disconnect()" id="disc" style="display:none;color:#e00">‚úï ◊†◊™◊ß</button>
+  <button onclick="connectBLE()">üîµ &#1492;&#1514;&#1495;&#1489;&#1512; &#1500;&#1506;&#1496;</button>
+  <button class="demo-btn" onclick="startDemo()">üéÆ &#1492;&#1491;&#1490;&#1502;&#1492;</button>
+  <button class="demo-btn" onclick="disconnect()" id="disc" style="display:none;color:#e00">‚úï &#1504;&#1514;&#1511;</button>
 </div>
 
-<!-- ◊ò◊ô◊ô◊û◊® -->
+<!-- &#1496;&#1497;&#1497;&#1502;&#1512; -->
 <div class="timer" id="timer">42:00</div>
-<div class="timer-label">◊ñ◊û◊ü ◊†◊ï◊™◊® ◊ë◊û◊ë◊ó◊ü</div>
+<div class="timer-label">&#1494;&#1502;&#1503; &#1504;&#1493;&#1514;&#1512; &#1489;&#1502;&#1489;&#1495;&#1503;</div>
 
-<!-- ◊°◊ô◊õ◊ï◊ù -->
+<!-- &#1505;&#1497;&#1499;&#1493;&#1501; -->
 <div class="summary">
   <div class="summary-card">
     <div class="num" id="cnt-focused" style="color:#22c55e">0</div>
-    <div class="lbl">◊õ◊ï◊™◊ë◊ô◊ù / ◊û◊û◊ï◊ß◊ì◊ô◊ù</div>
+    <div class="lbl">&#1499;&#1493;&#1514;&#1489;&#1497;&#1501; / &#1502;&#1502;&#1493;&#1511;&#1491;&#1497;&#1501;</div>
   </div>
   <div class="summary-card">
     <div class="num" id="cnt-distracted" style="color:#eab308">0</div>
-    <div class="lbl">◊û◊ï◊°◊ó◊ô◊ù</div>
+    <div class="lbl">&#1502;&#1493;&#1505;&#1495;&#1497;&#1501;</div>
   </div>
   <div class="summary-card">
     <div class="num" id="cnt-alert" style="color:#ef4444">0</div>
-    <div class="lbl">◊ì◊ï◊®◊©◊ô◊ù ◊™◊©◊ï◊û◊™ ◊ú◊ë</div>
+    <div class="lbl">&#1491;&#1493;&#1512;&#1513;&#1497;&#1501; &#1514;&#1513;&#1493;&#1502;&#1514; &#1500;&#1489;</div>
   </div>
 </div>
 
-<!-- ◊©◊ú◊ô◊ò◊î -->
+<!-- &#1513;&#1500;&#1497;&#1496;&#1492; -->
 <div class="controls">
-  <span id="exam-status">◊û◊¶◊ë ◊ó◊ï◊§◊©◊ô</span>
-  <button class="ctrl-btn start" onclick="sendCmd('START_EXAM')">‚ñ∂ ◊î◊™◊ó◊ú ◊û◊ë◊ó◊ü</button>
-  <button class="ctrl-btn alert-btn" onclick="sendCmd('ALERT')">‚ö†Ô∏è ◊î◊™◊®◊ê◊î</button>
-  <button class="ctrl-btn end" onclick="sendCmd('END_EXAM')">‚ñ† ◊°◊ô◊ô◊ù</button>
+  <span id="exam-status">&#1502;&#1510;&#1489; &#1495;&#1493;&#1508;&#1513;&#1497;</span>
+  <button class="ctrl-btn start" onclick="sendCmd('START_EXAM')">‚ñ∂ &#1492;&#1514;&#1495;&#1500; &#1502;&#1489;&#1495;&#1503;</button>
+  <button class="ctrl-btn alert-btn" onclick="sendCmd('ALERT')">‚ö†Ô∏è &#1492;&#1514;&#1512;&#1488;&#1492;</button>
+  <button class="ctrl-btn end" onclick="sendCmd('END_EXAM')">‚ñ† &#1505;&#1497;&#1497;&#1501;</button>
 </div>
 
-<!-- ◊®◊©◊ô◊û◊™ ◊™◊ú◊û◊ô◊ì◊ô◊ù -->
-<div class="list-header">◊™◊ú◊û◊ô◊ì◊ô◊ù (10)</div>
+<!-- &#1512;&#1513;&#1497;&#1502;&#1514; &#1514;&#1500;&#1502;&#1497;&#1491;&#1497;&#1501; -->
+<div class="list-header">&#1514;&#1500;&#1502;&#1497;&#1491;&#1497;&#1501; (10)</div>
 <div id="students-list"></div>
 
 <script>
-// ===== ◊†◊™◊ï◊†◊ô ◊™◊ú◊û◊ô◊ì◊ô◊ù =====
+// ===== &#1504;&#1514;&#1493;&#1504;&#1497; &#1514;&#1500;&#1502;&#1497;&#1491;&#1497;&#1501; =====
 const STUDENTS = [
-  { id: 1, name: '◊ì◊†◊ô◊ê◊ú ◊õ◊î◊ü',     status: 'focused',    hr: 72, pressure: 78 },
-  { id: 2, name: '◊û◊ô◊î ◊ú◊ï◊ô',       status: 'distracted', hr: 85, pressure: 32 },
-  { id: 3, name: '◊ô◊ï◊†◊™◊ü ◊ë◊®◊ß',     status: 'alert',      hr: 91, pressure: 10 },
-  { id: 4, name: '◊©◊ô◊®◊î ◊í◊ï◊ú◊ü',     status: 'focused',    hr: 68, pressure: 85 },
-  { id: 5, name: '◊ê◊û◊ô◊® ◊ì◊ï◊ì',      status: 'focused',    hr: 74, pressure: 70 },
-  { id: 6, name: '◊†◊ï◊¢◊î ◊§◊®◊•',      status: 'distracted', hr: 79, pressure: 40 },
-  { id: 7, name: '◊¢◊ô◊ì◊ï ◊©◊û◊©',      status: 'focused',    hr: 66, pressure: 90 },
-  { id: 8, name: '◊™◊û◊® ◊ê◊ë◊®◊î◊ù',     status: 'focused',    hr: 71, pressure: 65 },
-  { id: 9, name: '◊®◊ï◊ü ◊õ◊•',        status: 'distracted', hr: 82, pressure: 38 },
-  { id: 10, name: '◊ú◊ô◊ê◊ï◊® ◊ë◊ü-◊ì◊ï◊ì', status: 'focused',    hr: 69, pressure: 80 },
+  { id: 1, name: '&#1491;&#1504;&#1497;&#1488;&#1500; &#1499;&#1492;&#1503;',     status: 'focused',    hr: 72, pressure: 78 },
+  { id: 2, name: '&#1502;&#1497;&#1492; &#1500;&#1493;&#1497;',       status: 'distracted', hr: 85, pressure: 32 },
+  { id: 3, name: '&#1497;&#1493;&#1504;&#1514;&#1503; &#1489;&#1512;&#1511;',     status: 'alert',      hr: 91, pressure: 10 },
+  { id: 4, name: '&#1513;&#1497;&#1512;&#1492; &#1490;&#1493;&#1500;&#1503;',     status: 'focused',    hr: 68, pressure: 85 },
+  { id: 5, name: '&#1488;&#1502;&#1497;&#1512; &#1491;&#1493;&#1491;',      status: 'focused',    hr: 74, pressure: 70 },
+  { id: 6, name: '&#1504;&#1493;&#1506;&#1492; &#1508;&#1512;&#1509;',      status: 'distracted', hr: 79, pressure: 40 },
+  { id: 7, name: '&#1506;&#1497;&#1491;&#1493; &#1513;&#1502;&#1513;',      status: 'focused',    hr: 66, pressure: 90 },
+  { id: 8, name: '&#1514;&#1502;&#1512; &#1488;&#1489;&#1512;&#1492;&#1501;',     status: 'focused',    hr: 71, pressure: 65 },
+  { id: 9, name: '&#1512;&#1493;&#1503; &#1499;&#1509;',        status: 'distracted', hr: 82, pressure: 38 },
+  { id: 10, name: '&#1500;&#1497;&#1488;&#1493;&#1512; &#1489;&#1503;-&#1491;&#1493;&#1491;', status: 'focused',    hr: 69, pressure: 80 },
 ]
 
-const STATUS_LABEL = { focused: '‚úçÔ∏è ◊õ◊ï◊™◊ë', distracted: 'üòê ◊û◊ï◊°◊ó', alert: 'üö® ◊ì◊ï◊®◊© ◊™◊©◊ï◊û◊™ ◊ú◊ë' }
+const STATUS_LABEL = { focused: '‚úçÔ∏è &#1499;&#1493;&#1514;&#1489;', distracted: 'üòê &#1502;&#1493;&#1505;&#1495;', alert: 'üö® &#1491;&#1493;&#1512;&#1513; &#1514;&#1513;&#1493;&#1502;&#1514; &#1500;&#1489;' }
 
 let students = STUDENTS.map(s => ({...s}))
 let demoInterval = null
@@ -254,7 +254,7 @@ let cmdChar = null
 let bleDevice = null
 let isDemo = false
 
-// ===== ◊¶◊ô◊ï◊® ◊®◊©◊ô◊û◊î =====
+// ===== &#1510;&#1497;&#1493;&#1512; &#1512;&#1513;&#1497;&#1502;&#1492; =====
 function render() {
   const list = document.getElementById('students-list')
   list.innerHTML = ''
@@ -271,7 +271,7 @@ function render() {
       <div class="student-dot dot-${s.status}"></div>
       <div class="student-name">${s.name}</div>
       <div class="student-detail">‚ô• ${s.hr} bpm</div>
-      <div class="student-detail">◊ú◊ó◊• ${s.pressure}%</div>
+      <div class="student-detail">&#1500;&#1495;&#1509; ${s.pressure}%</div>
       <div class="student-status ${s.status}">${STATUS_LABEL[s.status]}</div>
     `
     list.appendChild(div)
@@ -282,7 +282,7 @@ function render() {
   document.getElementById('cnt-alert').textContent = a
 }
 
-// ===== ◊ò◊ô◊ô◊û◊® =====
+// ===== &#1496;&#1497;&#1497;&#1502;&#1512; =====
 function startTimer() {
   if (timerInterval) clearInterval(timerInterval)
   timerInterval = setInterval(() => {
@@ -300,11 +300,11 @@ const CMD_UUID  = 'abcd5678-ab12-ab12-ab12-abcdef123456'
 
 async function connectBLE() {
   if (!navigator.bluetooth) {
-    alert('Web Bluetooth ◊¢◊ï◊ë◊ì ◊®◊ß ◊ë-Chrome. ◊§◊™◊ó ◊ë◊õ◊®◊ï◊ù.')
+    alert('Web Bluetooth &#1506;&#1493;&#1489;&#1491; &#1512;&#1511; &#1489;-Chrome. &#1508;&#1514;&#1495; &#1489;&#1499;&#1512;&#1493;&#1501;.')
     return
   }
   try {
-    document.getElementById('status-text').textContent = '◊û◊ó◊§◊©...'
+    document.getElementById('status-text').textContent = '&#1502;&#1495;&#1508;&#1513;...'
     bleDevice = await navigator.bluetooth.requestDevice({
       filters: [{ name: 'SmartPen-01' }],
       optionalServices: [SVC]
@@ -321,7 +321,7 @@ async function connectBLE() {
       const txt = new TextDecoder().decode(e.target.value)
       try {
         const d = JSON.parse(txt)
-        // ◊¢◊ì◊õ◊ü ◊ê◊™ ◊î◊™◊ú◊û◊ô◊ì ◊î◊®◊ê◊©◊ï◊ü (◊ú◊ì◊ï◊í◊û◊î ‚Äî ◊™◊ï◊õ◊ú ◊ú◊î◊®◊ó◊ô◊ë)
+        // &#1506;&#1491;&#1499;&#1503; &#1488;&#1514; &#1492;&#1514;&#1500;&#1502;&#1497;&#1491; &#1492;&#1512;&#1488;&#1513;&#1493;&#1503; (&#1500;&#1491;&#1493;&#1490;&#1502;&#1492; ‚Äî &#1514;&#1493;&#1499;&#1500; &#1500;&#1492;&#1512;&#1495;&#1497;&#1489;)
         students[0].pressure = d.pressure
         students[0].hr = d.hr
         students[0].status = d.writing ? 'focused' : d.pressure < 10 ? 'alert' : 'distracted'
@@ -341,11 +341,11 @@ async function sendCmd(cmd) {
     await cmdChar.writeValue(new TextEncoder().encode(cmd))
   }
   if (cmd === 'START_EXAM') {
-    document.getElementById('exam-status').textContent = 'üìù ◊û◊ë◊ó◊ü ◊§◊¢◊ô◊ú'
+    document.getElementById('exam-status').textContent = 'üìù &#1502;&#1489;&#1495;&#1503; &#1508;&#1506;&#1497;&#1500;'
     timerSecs = 42 * 60
     startTimer()
   } else if (cmd === 'END_EXAM') {
-    document.getElementById('exam-status').textContent = '‚úÖ ◊î◊û◊ë◊ó◊ü ◊î◊°◊™◊ô◊ô◊ù'
+    document.getElementById('exam-status').textContent = '‚úÖ &#1492;&#1502;&#1489;&#1495;&#1503; &#1492;&#1505;&#1514;&#1497;&#1497;&#1501;'
     clearInterval(timerInterval)
   }
 }
@@ -355,7 +355,7 @@ function setStatus(state) {
   const txt = document.getElementById('status-text')
   const disc = document.getElementById('disc')
   dot.className = 'status-dot ' + (state === 'live' ? 'connected' : state === 'demo' ? 'demo' : '')
-  txt.textContent = state === 'live' ? '‚úÖ ◊û◊ó◊ï◊ë◊® ◊ú-SmartPen' : state === 'demo' ? 'üéÆ ◊û◊¶◊ë ◊î◊ì◊í◊û◊î' : '◊û◊†◊ï◊™◊ß'
+  txt.textContent = state === 'live' ? '‚úÖ &#1502;&#1495;&#1493;&#1489;&#1512; &#1500;-SmartPen' : state === 'demo' ? 'üéÆ &#1502;&#1510;&#1489; &#1492;&#1491;&#1490;&#1502;&#1492;' : '&#1502;&#1504;&#1493;&#1514;&#1511;'
   disc.style.display = state !== 'off' ? 'block' : 'none'
 }
 
@@ -367,7 +367,7 @@ function disconnect() {
   setStatus('off')
 }
 
-// ===== ◊î◊ì◊í◊û◊î =====
+// ===== &#1492;&#1491;&#1490;&#1502;&#1492; =====
 function startDemo() {
   isDemo = true
   setStatus('demo')
@@ -384,7 +384,7 @@ function startDemo() {
   }, 1500)
 }
 
-// ===== ◊ê◊™◊ó◊ï◊ú =====
+// ===== &#1488;&#1514;&#1495;&#1493;&#1500; =====
 render()
 </script>
 </body>
